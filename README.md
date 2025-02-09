@@ -17,7 +17,7 @@ UUID for unique identifiers
 
 **Setup Instructions**
 1️⃣ Clone the repository:
-git clone https://github.com/YOUR_USERNAME/jarjar-newsfeed.git
+git clone https://github.com/bafinouri91/jarjar-newsfeed.git
 2️⃣ Install dependencies:
 npm install
 3️⃣ Start the development server:
