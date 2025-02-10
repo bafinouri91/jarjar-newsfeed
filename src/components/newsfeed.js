@@ -14,23 +14,21 @@ export default function JarJarNewsfeed({title, updates, onAddUpdate}) {
       <Title>{title} - Newsfeed</Title>
       
      {/* فرم اضافه کردن پیام جدید */}
-     <AddUpdate>
-     <input type="text" placeholder="What’s new?" id="newUpdateInput" />
-     <button onClick={() => {
-       const inputElement = document.getElementById('newUpdateInput');
-
-
-       if (inputElement instanceof HTMLInputElement) {
-           const text = inputElement.value.trim(); // حذف فاصله‌های اضافی
-           if (text) {
-               onAddUpdate(text);
-               inputElement.value = ""; // بعد از اضافه کردن، فیلد را خالی کن
-           }
-       }
-     }}>
-      Add
-        </button>
-      </AddUpdate>
+     <AddPostContainer>
+    <Input type="text" placeholder="What’s new?" id="newUpdateInput" />
+    <AddButton onClick={() => {
+        const inputElement = document.getElementById('newUpdateInput');
+        if (inputElement instanceof HTMLInputElement) {
+            const text = inputElement.value.trim();
+            if (text) {
+                onAddUpdate(text);
+                inputElement.value = ""; 
+            }
+        }
+    }}>
+        Add
+    </AddButton>
+</AddPostContainer>
 
    {/* نمایش لیست پیام‌ها */}
    <UpdatesContainer>
@@ -66,17 +64,22 @@ JarJarNewsfeed.propTypes = {
 
 // **Styled Components**
 const Title = styled.h1`
-    color: #ffcc00;
-    font-size: 28px;
+    font-size: 3rem; /* سایز بزرگ‌تر */
     font-weight: bold;
     text-align: center;
-    margin-bottom: 20px;
+    color: #ffcc00; /* رنگ طلایی */
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8); /* افکت سایه */
+    margin-top: 20px;
+    letter-spacing: 2px;
+    font-family: 'StarJedi', sans-serif; /* اگه فونت خاصی داری */
 `;
+
 const NewsfeedContainer = styled.div`
     background: transparent; /* حذف پس‌زمینه */
     padding: 20px;
     border-radius: 10px;
 `;
+
 const AddUpdate = styled.div`
     display: flex;
     justify-content: space-between;
@@ -102,6 +105,45 @@ const Reactions = styled.div`
     display: flex;
     gap: 10px;
     margin-top: 5px;
+`;
+
+const AddPostContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.5); /* پس‌زمینه مشکی شفاف */
+    border-radius: 10px;
+    width: 50%;
+`;
+
+const Input = styled.input`
+    width: 80%;
+    padding: 10px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+`;
+
+const AddButton = styled.button`
+    padding: 10px 20px;
+    margin-left: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    background: #ffcc00; /* رنگ طلایی */
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: "StarJhol", sans-serif;
+    cursor: pointer;
+
+    &:hover {
+        background: #ffaa00; /* رنگ طلایی تیره‌تر هنگام هاور */
+    }
 `;
 
 

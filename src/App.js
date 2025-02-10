@@ -2,25 +2,40 @@ import React, {useCallback, useState,} from 'react'
 import './App.css'
 import data, {update } from './data'
 import JarJarNewsfeed from './components/newsfeed'
+import GlobalStyle from "./GlobalStyles"; // این خط جدید اضافه شده
+import styled from "styled-components";
 
-export function App() {
 
-  const [updates, setUpdates] = useState(data.updates)
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+`;
 
-    const handleAddUpdate = useCallback((text) => {
-          const newUpdate = update ("User", text, "")
-          setUpdates([newUpdate, ...updates])
-         }, [updates])
-          
+
+
+export default function App() {
+  const [updates, setUpdates] = useState(data.updates);
+
+  const handleAddUpdate = useCallback((text) => {
+    const newUpdate = update("User", text, "");
+    setUpdates([newUpdate, ...updates]);
+  }, [updates]);
 
   return (
-      <div className='container'>
-        {/* Display the newsfeed */}
+    <>
+      <GlobalStyle /> {/* استایل‌های کلی اعمال می‌شوند */}
+      <Container>
         <JarJarNewsfeed
-            title="Jar Jar"
-            updates={updates}
-            onAddUpdate={handleAddUpdate}
+          title="Jar Jar Newsfeed"
+          updates={updates}
+          onAddUpdate={handleAddUpdate}
         />
-      </div>
+      </Container>
+    </>
   );
+  
 }
+
+
