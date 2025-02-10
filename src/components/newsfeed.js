@@ -12,9 +12,18 @@ export default function JarJarNewsfeed({
   onAddUpdate,
   onAddComment,
   onReact,
+  commentReactions,
+  onReactToComment,
 }) {
   const [openComments, setOpenComments] = useState({});
   const [newComments, setNewComments] = useState({});
+
+  const reactions = [
+    { type: 'like', emoji: '❤️' },
+    { type: 'love', emoji: '👍' },
+    { type: 'wow', emoji: '🤯' },
+    { type: 'laugh', emoji: '😆' },
+  ];
 
   return (
     <NewsfeedContainer>
@@ -45,6 +54,8 @@ export default function JarJarNewsfeed({
           <UpdateBubble key={update.id}>
             <h3>{update.by}</h3>
             <p>{update.text}</p>
+
+            {/* دکمه نمایش کامنت‌ها */}
             <button
               onClick={() =>
                 setOpenComments((prev) => ({
@@ -55,19 +66,13 @@ export default function JarJarNewsfeed({
             >
               {openComments[update.id] ? 'Hide Comments' : 'View Comments'}
             </button>
+            {/* Reaction buttons */}
             <div className="reactions">
-              <button onClick={() => onReact(update.id, 'like')}>
-                ❤️ {update.reactions.like}
-              </button>
-              <button onClick={() => onReact(update.id, 'love')}>
-                👍 {update.reactions.love}
-              </button>
-              <button onClick={() => onReact(update.id, 'wow')}>
-                🤯 {update.reactions.wow}
-              </button>
-              <button onClick={() => onReact(update.id, 'laugh')}>
-                😆 {update.reactions.laugh}
-              </button>
+              {reactions.map(({ type, emoji }) => (
+                <button key={type} onClick={() => onReact(update.id, type)}>
+                  {emoji} {update.reactions?.[type] || 0}
+                </button>
+              ))}
             </div>
 
             {/* show / hide comments*/}
@@ -77,8 +82,21 @@ export default function JarJarNewsfeed({
                   <CommentBubble key={comment.id}>
                     <h4>{comment.by}</h4>
                     <p>{comment.text}</p>
+
+                    {/* نمایش دکمه‌های ری‌اکشن برای هر کامنت */}
+                    <div className="comment-reactions">
+                      {reactions.map(({ type, emoji }) => (
+                        <button
+                          key={type}
+                          onClick={() => onReactToComment(comment.id, type)}
+                        >
+                          {emoji} {commentReactions?.[comment.id]?.[type] || 0}
+                        </button>
+                      ))}
+                    </div>
                   </CommentBubble>
                 ))}
+
 
                 {/* فرم برای اضافه کردن کامنت جدید */}
                 <AddCommentContainer>

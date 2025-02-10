@@ -14,6 +14,9 @@ const Container = styled.div`
 
 export default function App() {
   const [updates, setUpdates] = useState(data.updates);
+  const [commentReactions, setCommentReactions] = useState({});
+  const [openComments, setOpenComments] = useState({});
+  const [newComments, setNewComments] = useState({});
 
   const handleAddUpdate = useCallback(
     (text) => {
@@ -32,6 +35,7 @@ export default function App() {
       text: text.trim(),
       created: Date.now(),
       imageSrc: '',
+      reactions: {},
     };
 
     setUpdates((prevUpdates) =>
@@ -59,6 +63,17 @@ export default function App() {
     );
   };
 
+  const handleCommentReaction = (commentId, reaction) => {
+    setCommentReactions((prev) => ({
+      ...prev,
+      [commentId]: prev[commentId]
+        ? {
+            ...prev[commentId],
+            [reaction]: (prev[commentId][reaction] || 0) + 1,
+          }
+        : { [reaction]: 1 },
+    }));
+  };
   return (
     <>
       <GlobalStyle /> {/* استایل‌های کلی اعمال می‌شوند */}
@@ -69,6 +84,8 @@ export default function App() {
           onAddUpdate={handleAddUpdate}
           onAddComment={handleAddComment}
           onReact={handleReaction}
+          commentReactions={commentReactions} // ارسال ری‌اکشن‌ها
+          onReactToComment={handleCommentReaction} // ارسال تابع مدیریت ری‌اکشن‌ها
         />
       </Container>
     </>

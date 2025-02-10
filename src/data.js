@@ -17,7 +17,9 @@ export const comment = (by, text, imageSrc, created = getRandomDate()) => ({
   created,
   imageSrc,
   id: uuid(),
+  reactions: {}
 });
+
 
 export const update = (by, text, imageSrc, created = getRandomDate()) => {
   return {
