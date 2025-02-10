@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
   @font-face {
@@ -31,7 +31,5 @@ const GlobalStyle = createGlobalStyle`
         background: #ffaa00;
     }
     `;
-
-
 
 export default GlobalStyle;

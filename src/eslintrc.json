@@ -1,0 +1,13 @@
+{
+    "extends": ["eslint:recommended", "plugin:react/recommended", "prettier"],
+    "plugins": ["react", "prettier"],
+    "rules": {
+      "prettier/prettier": ["error", { "singleQuote": true, "semi": true }],
+      "react/prop-types": "off"
+    },
+    "env": {
+      "browser": true,
+      "es2021": true
+    }
+  }
+  
