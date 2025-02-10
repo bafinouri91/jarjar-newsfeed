@@ -17,9 +17,8 @@ export const comment = (by, text, imageSrc, created = getRandomDate()) => ({
   created,
   imageSrc,
   id: uuid(),
-  reactions: {}
+  reactions: {},
 });
-
 
 export const update = (by, text, imageSrc, created = getRandomDate()) => {
   return {
@@ -51,7 +50,7 @@ export const update = (by, text, imageSrc, created = getRandomDate()) => {
   };
 };
 
-export default {
+const data = {
   updates: [
     update(
       'Jar Jar',
@@ -76,3 +75,5 @@ export default {
     ),
   ],
 };
+
+export default data;

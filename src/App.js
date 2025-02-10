@@ -1,9 +1,9 @@
-import React, { useCallback, useState } from 'react';
 import './App.css';
 import data, { update } from './data';
 import JarJarNewsfeed from './components/newsfeed';
 import GlobalStyle from './GlobalStyles'; // این خط جدید اضافه شده
 import styled from 'styled-components';
+import React, { useState } from 'react';
 
 const Container = styled.div`
   display: flex;
@@ -15,16 +15,14 @@ const Container = styled.div`
 export default function App() {
   const [updates, setUpdates] = useState(data.updates);
   const [commentReactions, setCommentReactions] = useState({});
-  const [openComments, setOpenComments] = useState({});
-  const [newComments, setNewComments] = useState({});
+  
 
-  const handleAddUpdate = useCallback(
-    (text) => {
-      const newUpdate = update('User', text, '');
-      setUpdates([newUpdate, ...updates]);
-    },
-    [updates],
-  );
+
+  const handleAddUpdate = (text) => {
+    const newUpdate = update('User', text, '');
+    setUpdates((prevUpdates) => [newUpdate, ...prevUpdates]);
+    // پست جدید به ابتدای لیست اضافه شود
+  };
 
   const handleAddComment = (postId, text) => {
     if (!text.trim()) return; // جلوگیری از کامنت خالی

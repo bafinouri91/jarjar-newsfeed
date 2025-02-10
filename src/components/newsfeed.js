@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import { update } from '../data';
 import styled from 'styled-components';
 import React, { useState } from 'react';
+import { AnimatePresence, motion } from "framer-motion";
 
 // import ViewUpdate from './view-update'
 // import AddUpdate from './add-update'
@@ -50,8 +50,17 @@ export default function JarJarNewsfeed({
 
       {/* نمایش لیست پیام‌ها */}
       <UpdatesContainer>
+      <AnimatePresence>
         {updates.map((update) => (
-          <UpdateBubble key={update.id}>
+          <UpdateBubble
+            key={update.id}
+            layout // 👈 این باعث می‌شه آپدیت جدید انیمیشن بگیره
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.5 }}
+            whileHover={{ scale: 1.05 }}
+          >
             <h3>{update.by}</h3>
             <p>{update.text}</p>
 
@@ -69,12 +78,14 @@ export default function JarJarNewsfeed({
             {/* Reaction buttons */}
             <div className="reactions">
               {reactions.map(({ type, emoji }) => (
-                <button key={type} onClick={() => onReact(update.id, type)}>
+                <ReactionButton
+                  key={type}
+                  onClick={() => onReact(update.id, type)}
+                >
                   {emoji} {update.reactions?.[type] || 0}
-                </button>
+                </ReactionButton>
               ))}
             </div>
-
             {/* show / hide comments*/}
             {openComments[update.id] && (
               <CommentsContainer>
@@ -86,17 +97,16 @@ export default function JarJarNewsfeed({
                     {/* نمایش دکمه‌های ری‌اکشن برای هر کامنت */}
                     <div className="comment-reactions">
                       {reactions.map(({ type, emoji }) => (
-                        <button
+                        <ReactionButton
                           key={type}
                           onClick={() => onReactToComment(comment.id, type)}
                         >
                           {emoji} {commentReactions?.[comment.id]?.[type] || 0}
-                        </button>
+                        </ReactionButton>
                       ))}
                     </div>
                   </CommentBubble>
                 ))}
-
 
                 {/* فرم برای اضافه کردن کامنت جدید */}
                 <AddCommentContainer>
@@ -123,6 +133,7 @@ export default function JarJarNewsfeed({
             )}
           </UpdateBubble>
         ))}
+        </AnimatePresence>
       </UpdatesContainer>
     </NewsfeedContainer>
   );
@@ -141,48 +152,46 @@ JarJarNewsfeed.propTypes = {
 
 // **Styled Components**
 const Title = styled.h1`
-  font-size: 3rem; /* سایز بزرگ‌تر */
+  font-size: 3rem;
   font-weight: bold;
   text-align: center;
-  color: #ffcc00; /* رنگ طلایی */
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8); /* افکت سایه */
+  color: #ffcc00;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
   margin-top: 20px;
   letter-spacing: 2px;
-  font-family: 'StarJedi', sans-serif; /* اگه فونت خاصی داری */
+  font-family: 'StarJedi', sans-serif;
 `;
 
 const NewsfeedContainer = styled.div`
-  background: transparent; /* حذف پس‌زمینه */
+  background: transparent;
   padding: 20px;
   border-radius: 10px;
-`;
-
-const AddUpdate = styled.div`
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 15px;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
 `;
 
 const UpdatesContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  align-items: center;
+  gap: 20px;
+  width: 80%;
+  max-width: 900px;
+  margin: 0 auto;
 `;
 
-const UpdateBubble = styled.div`
-  background: rgba(255, 255, 255, 0.6); /* پس‌زمینه سفید با شفافیت */
-  border-radius: 15px; /* گرد کردن لبه‌ها */
-  padding: 15px; /* فضای داخلی */
-  margin: 10px 0; /* فاصله بین پست‌ها */
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* سایه ملایم */
-  backdrop-filter: blur(10px); /* محو کردن پس‌زمینه */
-`;
-
-const Reactions = styled.div`
-  display: flex;
-  gap: 10px;
-  margin-top: 5px;
-`;
+const UpdateBubble = motion.create(styled.div`
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 15px;
+  padding: 15px;
+  margin: 10px 0;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
+  width: 100%;
+  font-size: 1.2rem;
+`);
 
 const AddPostContainer = styled.div`
   display: flex;
@@ -224,11 +233,12 @@ const AddButton = styled.button`
 `;
 
 const CommentsContainer = styled.div`
-  margin-top: 10px;
-  padding: 10px;
-  background: rgba(255, 255, 255, 0.7);
+  margin-top: 15px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  width: 95%;
 `;
 
 const CommentBubble = styled.div`
@@ -268,3 +278,21 @@ const AddCommentButton = styled.button`
     background: #ffaa00;
   }
 `;
+
+const ReactionButton = motion.create(styled.button`
+  background-color: #ffcc00;
+  border: none;
+  border-radius: 10px;
+  padding: 5px 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    background-color: #ffaa00;
+    transform: scale(1.1);
+  }
+`);

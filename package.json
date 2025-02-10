@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "framer-motion": "^12.4.2",
     "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "^5.0.1",
+    "semver": "^7.7.1",
     "styled-components": "^6.1.15",
     "uuid": "^9.0.1"
   },
@@ -26,6 +28,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@babel/plugin-transform-private-property-in-object": "^7.25.9",
     "@types/jest": "^29.5.6",
     "@types/react": "^18.2.31",
     "@types/react-dom": "^18.2.14",
