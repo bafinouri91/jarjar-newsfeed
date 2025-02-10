@@ -1,13 +1,17 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import { update } from '../data'
 import styled from "styled-components";
-
+import React, { useState } from 'react';
 
 // import ViewUpdate from './view-update'
 // import AddUpdate from './add-update'
 
-export default function JarJarNewsfeed({title, updates, onAddUpdate}) {
+export default function JarJarNewsfeed({ title, updates, onAddUpdate, onAddComment }) {
+
+  const [openComments, setOpenComments] = useState({});
+  const [newComments, setNewComments] = useState({});
+
+
   
   return (
     <NewsfeedContainer>
@@ -15,8 +19,8 @@ export default function JarJarNewsfeed({title, updates, onAddUpdate}) {
       
      {/* فرم اضافه کردن پیام جدید */}
      <AddPostContainer>
-    <Input type="text" placeholder="What’s new?" id="newUpdateInput" />
-    <AddButton onClick={() => {
+      <Input type="text" placeholder="What’s new?" id="newUpdateInput" />
+       <AddButton onClick={() => {
         const inputElement = document.getElementById('newUpdateInput');
         if (inputElement instanceof HTMLInputElement) {
             const text = inputElement.value.trim();
@@ -25,10 +29,11 @@ export default function JarJarNewsfeed({title, updates, onAddUpdate}) {
                 inputElement.value = ""; 
             }
         }
-    }}>
+       }}>
+
         Add
-    </AddButton>
-</AddPostContainer>
+        </AddButton>
+     </AddPostContainer>
 
    {/* نمایش لیست پیام‌ها */}
    <UpdatesContainer>
@@ -36,12 +41,48 @@ export default function JarJarNewsfeed({title, updates, onAddUpdate}) {
         <UpdateBubble key={update.id}> 
         <h3>{update.by}</h3>
         <p>{update.text}</p>
+        <button onClick={() => 
+        setOpenComments(prev => ({ ...prev, [update.id]: !prev[update.id] }))
+        }>
+        {openComments[update.id] ? "Hide Comments" : "View Comments"}
+        </button>
         <div className="reactions">
           <button>❤️</button>
           <button>👍</button>
           <button>🤯</button>
           <button>😆</button>
         </div>
+
+         {/* show / hide comments*/}
+        {openComments[update.id] && (
+          <CommentsContainer>
+          {update.comments.map(comment => (
+            <CommentBubble key={comment.id}>
+             <h4>{comment.by}</h4>
+             <p>{comment.text}</p>
+            </CommentBubble>
+            ))}
+            
+            {/* فرم برای اضافه کردن کامنت جدید */}
+    <AddCommentContainer>
+      <CommentInput
+        type="text"
+        placeholder="Write a comment..."
+        value={newComments[update.id] || ""}
+        onChange={(e) => 
+          setNewComments(prev => ({ ...prev, [update.id]: e.target.value }))
+        }
+      />
+      <AddCommentButton onClick={() => onAddComment(update.id, newComments[update.id])}>
+       Add
+      </AddCommentButton>
+      </AddCommentContainer>
+   
+
+          </CommentsContainer>
+           
+          )}
+          
       </UpdateBubble>
      ))}
    </UpdatesContainer>
@@ -49,6 +90,8 @@ export default function JarJarNewsfeed({title, updates, onAddUpdate}) {
   
   );
 }
+
+
 
     
  // **Prop Types**
@@ -59,6 +102,7 @@ JarJarNewsfeed.propTypes = {
   })).isRequired,
   title: PropTypes.string.isRequired,
 };
+
 
 
 
@@ -144,6 +188,53 @@ const AddButton = styled.button`
     &:hover {
         background: #ffaa00; /* رنگ طلایی تیره‌تر هنگام هاور */
     }
+   
+`;
+
+const CommentsContainer = styled.div`
+  margin-top: 10px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+`;
+
+const CommentBubble = styled.div`
+  background: white;
+  padding: 8px;
+  border-radius: 8px;
+  margin-bottom: 5px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+`;
+
+const AddCommentContainer = styled.div`
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+`;
+
+const CommentInput = styled.input`
+  flex: 1;
+  padding: 8px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+`;
+
+const AddCommentButton = styled.button`
+  padding: 8px 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  background: #ffcc00;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: #ffaa00;
+  }
 `;
 
 

@@ -94,14 +94,7 @@ blockquote {
   border-top: 1px solid #E4C370;
   padding: 16px 0;
 }
-/*body {
-  background: url('./naboobackground.png');
-  background-size: cover;
-  font-family: 'Arial', sans-serif;
-  background-position: center;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-}*/
+
 
 
 #root > .container {

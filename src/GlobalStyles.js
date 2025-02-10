@@ -14,6 +14,24 @@ const GlobalStyle = createGlobalStyle`
     background-attachment: fixed;
     background-repeat: no-repeat;
   }
-`;
+
+    button {
+        padding: 10px 20px;
+        font-size: 1rem;
+        font-weight: bold;
+        background: #ffcc00;
+        color: black;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    button:hover {
+        background: #ffaa00;
+    }
+    `;
+
+
 
 export default GlobalStyle;

@@ -23,6 +23,26 @@ export default function App() {
     setUpdates([newUpdate, ...updates]);
   }, [updates]);
 
+  const handleAddComment = (postId, text) => {
+    if (!text.trim()) return; // جلوگیری از کامنت خالی
+  
+    const newComment = {
+      id: Math.random().toString(36).substr(2, 9),
+      by: "User",
+      text: text.trim(),
+      created: Date.now(),  
+      imageSrc: ""
+    };
+  
+    setUpdates((prevUpdates) =>
+      prevUpdates.map((update) =>
+        update.id === postId
+          ? { ...update, comments: [...update.comments, newComment] }
+          : update
+      )
+    );
+  };
+
   return (
     <>
       <GlobalStyle /> {/* استایل‌های کلی اعمال می‌شوند */}
@@ -31,6 +51,7 @@ export default function App() {
           title="Jar Jar Newsfeed"
           updates={updates}
           onAddUpdate={handleAddUpdate}
+          onAddComment={handleAddComment}
         />
       </Container>
     </>
