@@ -1,21 +1,24 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
-
-
 // **Styled Components**
+
+// Styling for the main title of the newsfeed
 export const Title = styled.h1`
   font-size: 2.5rem;
   font-weight: bold;
   text-align: center;
-  color: #B0C4DE; /* طوسی آبی ملایم */
-text-shadow: 0px 0px 10px #00BFFF, 0px 0px 20px #4682B4;
+  color: #b0c4de;
+  text-shadow:
+    0px 0px 10px #00bfff,
+    0px 0px 20px #4682b4;
 
   margin-top: 20px;
   letter-spacing: 2px;
   font-family: 'StarJedi', sans-serif;
 `;
 
+// Main container for the newsfeed, styled to be centrally aligned with padding and rounded corners
 export const NewsfeedContainer = styled.div`
   background: transparent;
   padding: 20px;
@@ -26,6 +29,7 @@ export const NewsfeedContainer = styled.div`
   padding: 20px;
 `;
 
+// Container for individual updates, using a column layout to display a list of posts with consistent spacing
 export const UpdatesContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -36,6 +40,7 @@ export const UpdatesContainer = styled.div`
   margin: 0 auto;
 `;
 
+// Styling for individual Updates bubbles with translucency and shadow for a distinct, elevated look
 export const UpdateBubble = motion.create(styled.div`
   background: rgba(255, 255, 255, 0.4);
   border-radius: 15px;
@@ -48,17 +53,19 @@ export const UpdateBubble = motion.create(styled.div`
   font-size: 1.2rem;
 `);
 
+// Container for adding new updates, styled to be central with modern aesthetics and functionality
 export const AddPostContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 20px auto;
   padding: 10px;
-  background: rgba(0, 0, 0, 0.5); /* پس‌زمینه مشکی شفاف */
+  background: rgba(0, 0, 0, 0.5); 
   border-radius: 10px;
   width: 50%;
 `;
 
+// Input field styling with no border and adequate padding for ease of text entry
 export const Input = styled.input`
   width: 80%;
   padding: 10px;
@@ -68,6 +75,7 @@ export const Input = styled.input`
   outline: none;
 `;
 
+// Button for submitting new posts or comments, styled with transparency and hover effects to indicate interactivity
 export const AddButton = styled.button`
   background: rgba(0, 150, 255, 0.3);
   color: white;
@@ -87,6 +95,7 @@ export const AddButton = styled.button`
   }
 `;
 
+// Styling for comment bubbles, using translucency and shadow to distinctively separate from the main content
 export const CommentBubble = styled(motion.div)`
   position: relative; /* بجای absolute */
   width: auto; /* اندازه متناسب با متن */
@@ -103,12 +112,14 @@ export const CommentBubble = styled(motion.div)`
   gap: 5px;
 `;
 
+// Container for the comment addition area, structured to accommodate input elements and submission buttons adequately
 export const AddCommentContainer = styled.div`
   display: flex;
   gap: 10px;
   margin-top: 10px;
 `;
 
+// Input field for comments, styled minimally to focus on functionality and user ease
 export const CommentInput = styled.input`
   flex: 1;
   padding: 8px;
@@ -117,11 +128,12 @@ export const CommentInput = styled.input`
   border-radius: 5px;
 `;
 
+// Buttons for updates reactions, styled as circles with hover effects to enhance user interaction visual feedback
 export const ReactionButton = motion.create(styled.button`
-  background: rgba(255, 255, 255, 0.2); /* پس‌زمینه شیشه‌ای */
+  background: rgba(255, 255, 255, 0.2); 
   border: 1px solid rgba(255, 255, 255, 0.3);
   border: none;
-  border-radius: 50px; /* دایره‌ای شدن دکمه */
+  border-radius: 50px; 
   padding: 5px 8px;
   font-size: 1rem;
   cursor: pointer;
@@ -133,11 +145,12 @@ export const ReactionButton = motion.create(styled.button`
   transition: all 0.3s ease-in-out;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.4); /* تغییر رنگ موقع هاور */
-    transform: scale(1.1); /* کمی بزرگ‌تر شدن */
+    background: rgba(255, 255, 255, 0.4); 
+    transform: scale(1.1); 
   }
 `);
 
+// Profile image styling, circular to maintain visual consistency and user recognition
 export const ProfileImage = styled.img`
   width: 40px;
   height: 40px;
@@ -145,6 +158,8 @@ export const ProfileImage = styled.img`
   margin-right: 10px;
 `;
 
+
+// Styling for the header of each post, including user name and profile image, structured for clear visibility and emphasis
 export const PostHeader = styled.div`
   display: flex;
   align-items: center;
@@ -153,6 +168,8 @@ export const PostHeader = styled.div`
   margin-bottom: 10px;
 `;
 
+
+// Container for reaction buttons, laid out horizontally with evenly spaced elements for a clean look
 export const ReactionsContainer = styled.div`
   display: flex;
   flex-direction: row;

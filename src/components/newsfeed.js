@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion'
 import {
   NewsfeedContainer,
   Title,
@@ -16,8 +16,9 @@ import {
   AddCommentContainer,
   CommentInput,
   ReactionButton,
-} from './StyledComponents';
+} from './StyledComponents'
 
+// Main component for rendering the newsfeed
 export default function JarJarNewsfeed({
   title,
   updates,
@@ -27,21 +28,21 @@ export default function JarJarNewsfeed({
   commentReactions,
   onReactToComment,
 }) {
-  const [openComments, setOpenComments] = useState({});
-  const [newComments, setNewComments] = useState({});
+  const [openComments, setOpenComments] = useState({}); // State to manage the visibility of comments (show/hide)
+  const [newComments, setNewComments] = useState({}); // State to hold new comment inputs
 
   const reactions = [
     { type: 'like', emoji: '❤️' },
     { type: 'love', emoji: '👍' },
     { type: 'wow', emoji: '🤯' },
     { type: 'laugh', emoji: '😆' },
-  ];
+  ]; // Predefined reactions for posts
 
   return (
     <NewsfeedContainer>
       <Title>{title} - Newsfeed</Title>
 
-      {/* فرم اضافه کردن پیام جدید */}
+      {/* Container for adding new updates(posts) */}
       <AddPostContainer>
         <Input type="text" placeholder="What’s new?" id="newUpdateInput" />
         <AddButton
@@ -65,27 +66,26 @@ export default function JarJarNewsfeed({
         </AddButton>
       </AddPostContainer>
 
-      {/* نمایش لیست پیام‌ها */}
+      {/* Container for displaying list of updates */}
       <UpdatesContainer>
         <AnimatePresence>
           {updates.map((update) => (
             <UpdateBubble
               key={update.id}
-              layout // 👈 این باعث می‌شه آپدیت جدید انیمیشن بگیره
+              layout // Enable layout animation for each update
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
               transition={{ duration: 0.5 }}
               whileHover={{ scale: 1.05 }}
             >
-              {/* ✅ عکس پروفایل برای هر پست اضافه شد */}
               <PostHeader>
                 <ProfileImage src={update.imageSrc} alt={update.by} />
                 <h3>{update.by}</h3>
               </PostHeader>
 
               <p>{update.text}</p>
-              {/* دکمه نمایش کامنت‌ها */}
+              {/* Show/Hide Comments button */}
               <button
                 onClick={() =>
                   setOpenComments((prev) => ({
@@ -96,8 +96,8 @@ export default function JarJarNewsfeed({
               >
                 {openComments[update.id] ? 'Hide Comments' : 'View Comments'}
               </button>
-              {/* Reaction buttons */}
 
+              {/* Reaction buttons container */}
               <ReactionsContainer>
                 {reactions.map(({ type, emoji }) => (
                   <ReactionButton
@@ -108,8 +108,6 @@ export default function JarJarNewsfeed({
                   </ReactionButton>
                 ))}
               </ReactionsContainer>
-
-              {/* show / hide comments*/}
 
               {openComments[update.id] && (
                 <div>
@@ -124,8 +122,7 @@ export default function JarJarNewsfeed({
                       </PostHeader>
                       <p>{comment.text}</p>
 
-                      {/* نمایش دکمه‌های ری‌اکشن برای هر کامنت */}
-
+                      {/* Container for comment reactions */}
                       <ReactionsContainer>
                         {reactions.map(({ type, emoji }) => (
                           <ReactionButton
@@ -142,7 +139,7 @@ export default function JarJarNewsfeed({
                 </div>
               )}
 
-              {/* فرم برای اضافه کردن کامنت جدید */}
+              {/* Adding new comments container */}
               <AddCommentContainer>
                 <CommentInput
                   type="text"
@@ -171,7 +168,7 @@ export default function JarJarNewsfeed({
   );
 }
 
-// **Prop Types**
+// ** Prop Type validations **
 JarJarNewsfeed.propTypes = {
   onAddUpdate: PropTypes.func.isRequired,
   updates: PropTypes.arrayOf(

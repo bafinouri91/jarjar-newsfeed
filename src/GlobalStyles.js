@@ -1,12 +1,14 @@
 import { createGlobalStyle } from 'styled-components';
 
+// Defines global styles applied throughout the application
 const GlobalStyle = createGlobalStyle`
   @font-face {
     font-family: 'StarJedi';
     src: url('./fonts/Starjedi.ttf') format('truetype');
   }
 
-   body {
+   
+  body {
     background: url('/naboobackground.png');
     background-size: cover;
     font-family: 'Arial', sans-serif;
@@ -35,5 +37,7 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 `;
+
+
 
 export default GlobalStyle;

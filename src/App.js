@@ -6,6 +6,8 @@ import styled from 'styled-components';
 import React, { useState } from 'react';
 import { v4 as uuid } from 'uuid';
 
+
+//Styled container for the main app component
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -13,30 +15,33 @@ const Container = styled.div`
   padding: 20px;
 `;
 
-export default function App() {
-  const [updates, setUpdates] = useState(data.updates);
-  const [commentReactions, setCommentReactions] = useState({});
 
+export default function App() {
+  const [updates, setUpdates] = useState(data.updates); // State for storing the list of updates
+  const [commentReactions, setCommentReactions] = useState({}); // State for managing reactions on comments
+
+  // Function to handle adding a new update
   const handleAddUpdate = (text) => {
-    if (!text.trim()) return;
+    if (!text.trim()) return; // Prevent adding empty updates
 
     const newUpdate = {
       id: uuid(),
-      by: 'User',
+      by: 'User', // Default user attribution
       text,
-      imageSrc: '/jarjar.jpg',
+      imageSrc: '/jarjar.jpg', // Default image for new updates
       reactions: { like: 0, love: 0, wow: 0, laugh: 0 },
-      comments: [], // مقدار اولیه برای کامنت‌ها
-      created: Date.now(), // مقدار زمانی اضافه شده
+      comments: [],
+      created: Date.now(),
     };
-    setUpdates((prevUpdates) => [newUpdate, ...prevUpdates]);
+    setUpdates((prevUpdates) => [newUpdate, ...prevUpdates]); // Add the new update at the beginning of the list
   };
-
+  
+  // Function to handle adding a new comment to a specific post
   const handleAddComment = (postId, text) => {
     if (!text.trim()) return;
 
     const newComment = {
-      id: Math.random().toString(36).substr(2, 9),
+      id: uuid(),
       by: 'User',
       text: text.trim(),
       created: Date.now(),
@@ -47,12 +52,13 @@ export default function App() {
     setUpdates((prevUpdates) =>
       prevUpdates.map((update) =>
         update.id === postId
-          ? { ...update, comments: [...update.comments, newComment] }
+          ? { ...update, comments: [...update.comments, newComment] } // Append new comment to the existing array of comments
           : update,
       ),
     );
   };
 
+   // Function to handle adding reactions to an update
   const handleReaction = (postId, reactionType) => {
     setUpdates((prevUpdates) =>
       prevUpdates.map((update) =>
@@ -69,6 +75,9 @@ export default function App() {
     );
   };
 
+  
+  
+  // Function to handle adding reactions to a comment
   const handleCommentReaction = (commentId, reaction) => {
     setCommentReactions((prev) => ({
       ...prev,
@@ -81,7 +90,7 @@ export default function App() {
 
   return (
     <>
-      <GlobalStyle /> {/* استایل‌های کلی اعمال می‌شوند */}
+      <GlobalStyle />
       <Container>
         <JarJarNewsfeed
           title="Jar Jar Newsfeed"
@@ -89,8 +98,8 @@ export default function App() {
           onAddUpdate={handleAddUpdate}
           onAddComment={handleAddComment}
           onReact={handleReaction}
-          commentReactions={commentReactions} // ارسال ری‌اکشن‌ها
-          onReactToComment={handleCommentReaction} // ارسال تابع مدیریت ری‌اکشن‌ها
+          commentReactions={commentReactions}
+          onReactToComment={handleCommentReaction}
         />
       </Container>
     </>
