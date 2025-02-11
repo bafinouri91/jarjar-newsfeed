@@ -1,9 +1,10 @@
 import './App.css';
-import data, { update } from './data';
+import data from './data';
 import JarJarNewsfeed from './components/newsfeed';
-import GlobalStyle from './GlobalStyles'; // این خط جدید اضافه شده
+import GlobalStyle from './GlobalStyles';
 import styled from 'styled-components';
 import React, { useState } from 'react';
+import { v4 as uuid } from 'uuid';
 
 const Container = styled.div`
   display: flex;
@@ -15,17 +16,24 @@ const Container = styled.div`
 export default function App() {
   const [updates, setUpdates] = useState(data.updates);
   const [commentReactions, setCommentReactions] = useState({});
-  
-
 
   const handleAddUpdate = (text) => {
-    const newUpdate = update('User', text, '');
+    if (!text.trim()) return;
+
+    const newUpdate = {
+      id: uuid(),
+      by: 'User',
+      text,
+      imageSrc: '/jarjar.jpg',
+      reactions: { like: 0, love: 0, wow: 0, laugh: 0 },
+      comments: [], // مقدار اولیه برای کامنت‌ها
+      created: Date.now(), // مقدار زمانی اضافه شده
+    };
     setUpdates((prevUpdates) => [newUpdate, ...prevUpdates]);
-    // پست جدید به ابتدای لیست اضافه شود
   };
 
   const handleAddComment = (postId, text) => {
-    if (!text.trim()) return; // جلوگیری از کامنت خالی
+    if (!text.trim()) return;
 
     const newComment = {
       id: Math.random().toString(36).substr(2, 9),
@@ -53,7 +61,7 @@ export default function App() {
               ...update,
               reactions: {
                 ...update.reactions,
-                [reactionType]: update.reactions[reactionType] + 1,
+                [reactionType]: (update.reactions[reactionType] || 0) + 1,
               },
             }
           : update,
@@ -64,14 +72,13 @@ export default function App() {
   const handleCommentReaction = (commentId, reaction) => {
     setCommentReactions((prev) => ({
       ...prev,
-      [commentId]: prev[commentId]
-        ? {
-            ...prev[commentId],
-            [reaction]: (prev[commentId][reaction] || 0) + 1,
-          }
-        : { [reaction]: 1 },
+      [commentId]: {
+        ...prev[commentId],
+        [reaction]: (prev[commentId]?.[reaction] || 0) + 1,
+      },
     }));
   };
+
   return (
     <>
       <GlobalStyle /> {/* استایل‌های کلی اعمال می‌شوند */}

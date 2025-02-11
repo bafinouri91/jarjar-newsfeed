@@ -20,7 +20,7 @@ export const comment = (by, text, imageSrc, created = getRandomDate()) => ({
   reactions: {},
 });
 
-export const update = (by, text, imageSrc, created = getRandomDate()) => {
+export const update = (by, text, imageSrc = jarjarImage, created = getRandomDate()) => {
   return {
     by,
     text,
