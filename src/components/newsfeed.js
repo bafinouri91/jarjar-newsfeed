@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion';
+import moment from 'moment';
 import {
   NewsfeedContainer,
   Title,
@@ -16,7 +17,7 @@ import {
   AddCommentContainer,
   CommentInput,
   ReactionButton,
-} from './StyledComponents'
+} from './StyledComponents';
 
 // Main component for rendering the newsfeed
 export default function JarJarNewsfeed({
@@ -82,6 +83,7 @@ export default function JarJarNewsfeed({
               <PostHeader>
                 <ProfileImage src={update.imageSrc} alt={update.by} />
                 <h3>{update.by}</h3>
+                <small>{moment(update.created).format('LLLL')}</small>
               </PostHeader>
 
               <p>{update.text}</p>
@@ -119,6 +121,7 @@ export default function JarJarNewsfeed({
                           alt={comment.by}
                         />
                         <h4>{comment.by}</h4>
+                        <small>{moment(comment.created).format('LLLL')}</small>
                       </PostHeader>
                       <p>{comment.text}</p>
 
