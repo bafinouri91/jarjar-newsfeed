@@ -6,11 +6,13 @@ import b1droidImage from './b1droid.jpg';
 import moment from 'moment';
 import { v4 as uuid } from 'uuid';
 
+// Function to generate a random date within the last five days
 const getRandomDate = () => {
   const randomNumber = Math.floor(Math.random() * Math.floor(5));
   return moment(Date.now()).subtract(randomNumber, 'days').valueOf();
 };
 
+// Helper function to create a comment object with default values
 export const comment = (by, text, imageSrc, created = getRandomDate()) => ({
   text,
   by,
@@ -20,7 +22,13 @@ export const comment = (by, text, imageSrc, created = getRandomDate()) => ({
   reactions: {},
 });
 
-export const update = (by, text, imageSrc = jarjarImage, created = getRandomDate()) => {
+// Helper function to create an update object with default values
+export const update = (
+  by,
+  text,
+  imageSrc = jarjarImage,
+  created = getRandomDate(),
+) => {
   return {
     by,
     text,
@@ -50,6 +58,7 @@ export const update = (by, text, imageSrc = jarjarImage, created = getRandomDate
   };
 };
 
+// Main data object containing an array of updates
 const data = {
   updates: [
     update(

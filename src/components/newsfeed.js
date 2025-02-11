@@ -52,12 +52,7 @@ export default function JarJarNewsfeed({
             if (inputElement instanceof HTMLInputElement) {
               const text = inputElement.value.trim();
               if (text) {
-                onAddUpdate({
-                  text,
-                  by: 'User',
-                  imageSrc: '/jarjar.jpg',
-                  id: Date.now().toString(),
-                });
+                onAddUpdate(text);
                 inputElement.value = '';
               }
             }

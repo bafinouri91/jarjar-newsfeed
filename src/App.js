@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import React, { useState } from 'react';
 import { v4 as uuid } from 'uuid';
 
-
 //Styled container for the main app component
 const Container = styled.div`
   display: flex;
@@ -15,14 +14,13 @@ const Container = styled.div`
   padding: 20px;
 `;
 
-
 export default function App() {
   const [updates, setUpdates] = useState(data.updates); // State for storing the list of updates
   const [commentReactions, setCommentReactions] = useState({}); // State for managing reactions on comments
 
   // Function to handle adding a new update
   const handleAddUpdate = (text) => {
-    if (!text.trim()) return; // Prevent adding empty updates
+    if (typeof text !== 'string' || !text.trim()) return; // Prevent adding empty updates
 
     const newUpdate = {
       id: uuid(),
@@ -33,9 +31,13 @@ export default function App() {
       comments: [],
       created: Date.now(),
     };
-    setUpdates((prevUpdates) => [newUpdate, ...prevUpdates]); // Add the new update at the beginning of the list
+
+    setUpdates((prevUpdates) => {
+      const updatedUpdates = [newUpdate, ...prevUpdates];
+      return updatedUpdates;
+    });
   };
-  
+
   // Function to handle adding a new comment to a specific post
   const handleAddComment = (postId, text) => {
     if (!text.trim()) return;
@@ -58,7 +60,7 @@ export default function App() {
     );
   };
 
-   // Function to handle adding reactions to an update
+  // Function to handle adding reactions to an update
   const handleReaction = (postId, reactionType) => {
     setUpdates((prevUpdates) =>
       prevUpdates.map((update) =>
@@ -75,8 +77,6 @@ export default function App() {
     );
   };
 
-  
-  
   // Function to handle adding reactions to a comment
   const handleCommentReaction = (commentId, reaction) => {
     setCommentReactions((prev) => ({
