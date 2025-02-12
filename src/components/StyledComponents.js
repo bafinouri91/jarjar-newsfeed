@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 
 // Styling for the main title of the newsfeed
 export const Title = styled.h1`
-  font-size: 2.5rem;
+  font-size: 12 rem;
   font-weight: bold;
   text-align: center;
   color: #b0c4de;
@@ -49,7 +49,7 @@ export const UpdateBubble = motion.create(styled.div`
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(5px);
   width: 100%;
-  max-width: 600px;
+  max-width: 800px;
   font-size: 1.2rem;
 `);
 
@@ -59,20 +59,26 @@ export const AddPostContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin: 20px auto;
-  padding: 10px;
-  background: rgba(0, 0, 0, 0.5); 
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.5);
   border-radius: 10px;
-  width: 50%;
+  width: 90%;
+  
 `;
 
 // Input field styling with no border and adequate padding for ease of text entry
 export const Input = styled.input`
-  width: 80%;
-  padding: 10px;
-  font-size: 1.2rem;
+  width: 90%;
+  padding: 15px;
+  min-height: 50px;
+  font-size: 1.4rem;
   border: none;
   border-radius: 5px;
   outline: none;
+  white-space: pre-wrap;
+  overflow: hidden;
+  text-overflow: clip;
+  resize: vertical;
 `;
 
 // Button for submitting new posts or comments, styled with transparency and hover effects to indicate interactivity
@@ -88,6 +94,7 @@ export const AddButton = styled.button`
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   font-size: 1rem;
   font-weight: bold;
+  margin-top: 10px;
 
   &:hover {
     background: rgba(0, 150, 255, 0.5);
@@ -130,10 +137,10 @@ export const CommentInput = styled.input`
 
 // Buttons for updates reactions, styled as circles with hover effects to enhance user interaction visual feedback
 export const ReactionButton = motion.create(styled.button`
-  background: rgba(255, 255, 255, 0.2); 
+  background: rgba(255, 255, 255, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.3);
   border: none;
-  border-radius: 50px; 
+  border-radius: 50px;
   padding: 5px 8px;
   font-size: 1rem;
   cursor: pointer;
@@ -145,8 +152,8 @@ export const ReactionButton = motion.create(styled.button`
   transition: all 0.3s ease-in-out;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.4); 
-    transform: scale(1.1); 
+    background: rgba(255, 255, 255, 0.4);
+    transform: scale(1.1);
   }
 `);
 
@@ -158,7 +165,6 @@ export const ProfileImage = styled.img`
   margin-right: 10px;
 `;
 
-
 // Styling for the header of each post, including user name and profile image, structured for clear visibility and emphasis
 export const PostHeader = styled.div`
   display: flex;
@@ -167,7 +173,6 @@ export const PostHeader = styled.div`
   font-weight: bold;
   margin-bottom: 10px;
 `;
-
 
 // Container for reaction buttons, laid out horizontally with evenly spaced elements for a clean look
 export const ReactionsContainer = styled.div`

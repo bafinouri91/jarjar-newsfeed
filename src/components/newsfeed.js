@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence} from 'framer-motion';
 import moment from 'moment';
 import {
   NewsfeedContainer,
@@ -41,11 +41,11 @@ export default function JarJarNewsfeed({
 
   return (
     <NewsfeedContainer>
-      <Title>{title} - Newsfeed</Title>
+      <Title> {title} </Title>
 
       {/* Container for adding new updates(posts) */}
       <AddPostContainer>
-        <Input type="text" placeholder="What’s new?" id="newUpdateInput" />
+        <Input type="text" placeholder="Got any bombad news to share??" id="newUpdateInput" />
         <AddButton
           onClick={() => {
             const inputElement = document.getElementById('newUpdateInput');
