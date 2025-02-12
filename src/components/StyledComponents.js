@@ -7,6 +7,8 @@ import { motion } from 'framer-motion';
 export const Title = styled.h1`
   font-size: 12 rem;
   font-weight: bold;
+  transform: scale(1.2);
+  transition: transform 0.3s ease-in-out;
   text-align: center;
   color: #b0c4de;
   text-shadow:
@@ -63,7 +65,7 @@ export const AddPostContainer = styled.div`
   background: rgba(0, 0, 0, 0.5);
   border-radius: 10px;
   width: 90%;
-  
+  gap: 15px;
 `;
 
 // Input field styling with no border and adequate padding for ease of text entry
@@ -86,13 +88,13 @@ export const AddButton = styled.button`
   background: rgba(0, 150, 255, 0.3);
   color: white;
   border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 8px;
-  padding: 10px 15px;
+  border-radius: 12px;
+  padding: 15px 20px;
   cursor: pointer;
   backdrop-filter: blur(10px);
   transition: all 0.3s ease-in-out;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  font-size: 1rem;
+  font-size: 2 rem;
   font-weight: bold;
   margin-top: 10px;
 
